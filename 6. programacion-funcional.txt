@@ -1,0 +1,20 @@
+/*En la programación funcional, puedes realizar acciones como las siguientes:
+
+Pasar funciones como argumentos.
+Asignar una función a una variable.
+Deconstruir una función que toma varios argumentos en una secuencia de funciones 
+de la que cada una toma un solo argumento (que también se denomina currificación).
+Crear una función sin nombre que se pueda usar como valor constante 
+(que también se denomina expresión lambda; las expresiones lambda se agregaron a Java en la versión JDK 8).
+Dart admite todas estas características. 
+En Dart, incluso las funciones son objetos y tienen un tipo, Function, lo que implica que las funciones pueden asignarse a 
+variables o pasarse como argumentos a otras funciones. También, puedes llamar a una instancia de una clase de Dart 
+como si fuera una función */
+
+String scream(int length) => "A${'a' * length}h!";
+//funciones Iterable
+//Las clases principales List y Iterable admiten fold(), where(), join() y skip(), entre otras. Además, Dart cuenta con compatibilidad integrada para mapas y conjuntos.
+main() {
+  final values = [1, 2, 3, 5, 10, 50];
+  values.skip(1).take(3).map(scream).forEach(print);
+}

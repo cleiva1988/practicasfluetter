@@ -1,0 +1,47 @@
+/*Las fábricas, un patrón de diseño de uso frecuente en Java, ofrecen varias ventajas en comparación 
+con la creación de instancias de objetos directos, como ocultar detalles de la creación de instancias, 
+brindar la capacidad de mostrar un subtipo del tipo de fábrica que se muestra y, de manera opcional, 
+mostrar un objeto existente en lugar de un objeto nuevo.
+En este paso, se explican dos maneras de implementar una fábrica de creación de forma:
+
+Opción 1: Crea una función de nivel superior.
+Opción 2: Crea un constructor factory.*/
+
+//dart:math es una de las bibliotecas principales de Dart. Otras bibliotecas principales incluyen dart:core, dart:async, dart:convert y dart:collection.
+
+import 'dart:math';
+
+//Dart admite clases abstractas.
+//Usa la palabra clave factory de Dart para crear un constructor factory.
+
+abstract class Shape {
+  factory Shape(String type) {
+    if (type == 'circle') return Circle(2);
+    if (type == 'square') return Square(2);
+    throw 'Can\'t create $type.';
+  }
+  num get area;
+}
+
+//Muestra dos métodos get que calculan un valor: num get area => pi * pow(radius, 2); / Circle num get area => pow(side, 2) Square
+
+class Circle implements Shape {
+  final num radius;
+  Circle(this.radius);
+  num get area => pi * pow(radius, 2);
+}
+
+class Square implements Shape {
+  final num side;
+  Square(this.side);
+  num get area => pow(side, 2);
+}
+
+// crear instancias de las formas:
+//Cuando una variable se declara empleando la palabra clave final, su valor no puede ser modificado.
+main() {
+  final circle = Shape('circle');
+  final square = Shape('square');
+  print(circle.area);
+  print(square.area);
+}
