@@ -1,0 +1,40 @@
+/*Con este ejemplo, el analizador de Dart genera un error que te informa que las variables deben inicializarse porque no son anulables. 
+Deberás corregir eso en la siguiente sección.
+El método principal de Dart se llama main(). 
+Si necesitas acceder a los argumentos de la línea de comandos, puedes agregarlos: main(List<String> args).
+El método main() está en el nivel superior. En Dart, puedes definir el código fuera de las clases. 
+Las variables, las funciones, los métodos get y métodos set pueden permanecer fuera de las clases.
+El ejemplo original de Java declara las variables de instancia privada con la etiqueta private, que Dart no usa. 
+Más adelante, en la sección Cómo agregar una variable de solo lectura, obtendrás más información sobre la privacidad.
+Ni main() ni Bicycle se declaran como public, porque todos los identificadores son públicos de forma predeterminada. 
+Dart no tiene palabras clave para public, private ni protected.*/
+
+//2.Creamos la clase llamad bicycle
+class Bicycle {
+  int cadence; //Con tres variables de instancia
+  int _speed = 0; // velocidad privada, solo accesible dentro de la clase
+  int get speed =>
+      _speed; // getter público para acceder a la velocidad desde fuera de la clase
+  int gear;
+
+  // Aqui tenemos el constructor de la clase
+  Bicycle(this.cadence, this.gear);
+
+  // Este método que reduce la velocidad de la bicicleta
+  void applyBrake(int decrement) {
+    _speed -= decrement;
+  }
+
+  // La anotación @override le indica al analizador que anularás un miembro de manera intencional.
+  //Con el método toString() que puedes anular para brindar un resultado más útil.
+  @override
+  String toString() => 'Bicycle: $_speed mph';
+}
+
+// Función principal que crea una instancia de Bicycle y la manda a imprimir.
+void main() {
+  var bike = Bicycle(2, 1);
+  print(bike);
+}
+
+
