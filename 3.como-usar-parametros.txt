@@ -1,0 +1,29 @@
+/*En el siguiente ejercicio, se define una clase Rectangle, otro ejemplo del instructivo de Java.
+En el código Java, se muestran constructores de sobrecarga, una práctica común en Java en la que los constructores tienen el mismo nombre, 
+pero la cantidad o el tipo de parámetros son diferentes. Dart no admite constructores de sobrecarga y 
+controla esta situación de manera diferente.*/
+
+import 'dart:math';
+
+class Rectangle {
+  int width;
+  int height;
+  Point origin;
+
+//Agrega un solo constructor vacío que reemplace los cuatro constructores en el ejemplo de Java:
+
+  Rectangle({this.origin = const Point(0, 0), this.width = 0, this.height = 0});
+  
+//this.origin, this.width y this.height son parámetros opcionales con nombre. Los parámetros con nombre se encierran entre llaves ({}).
+
+  @override
+  String toString() =>
+      'Origin: (${origin.x}, ${origin.y}), width: $width, height: $height';
+}
+//puedes crear instancias de Rectangle con solo los parámetros que necesitas:
+main() {
+  print(Rectangle(origin: const Point(10, 20), width: 100, height: 200));
+  print(Rectangle(origin: const Point(10, 10)));
+  print(Rectangle(width: 200));
+  print(Rectangle());
+}
