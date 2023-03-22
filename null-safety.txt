@@ -1,0 +1,127 @@
+//Tipos anulables y no anulables
+
+/* Si desea que una variable de tipo Stringacepte cualquier 
+ cadena o el valor null, asigne a la variable un tipo anulable 
+ agregando un signo de interrogación ( ?) después del nombre del tipo.*/
+
+//Tipos que no aceptan valores NULL
+
+void main() {
+  int a;
+  a = null;
+  print('a is $a.');
+}
+ 
+//Parámetros de tipo anulable para genéricos
+
+//Los parámetros de tipo para genéricos también pueden ser anulables o no anulables.
+void main() {
+  List<String> aListOfStrings = ['one', 'two', 'three'];
+  List<String> aNullableListOfStrings;
+  List<String> aListOfNullableStrings = ['one', null, 'three'];
+
+  print('aListOfStrings is $aListOfStrings.');
+  print('aNullableListOfStrings is $aNullableListOfStrings.');
+  print('aListOfNullableStrings is $aListOfNullableStrings.');
+}
+
+//Operadores conscientes de nulo
+
+/*Para manejar null valores potenciales, puede usar el operador de acceso
+ a la propiedad condicional ( ?.) o los operadores de fusión nula ( ??) 
+ para acceder condicionalmente a una propiedad o proporcionar un valor
+ predeterminado si, nullrespectivamente.*/
+
+//Acceso a propiedad condicional
+
+//En el stringLengthmétodo para corregir el error y devolver la longitud de la cadena o nullsi es null:
+
+int? stringLength(String? nullableString) {
+  return nullableString?.length;
+}
+
+//Operadores de fusión nula
+
+//operadores para implementar updateStoredValue
+
+abstract class Store {
+  int? storedNullableValue;
+
+  /// Si [storedNullableValue] es actualmente `null`,
+  /// establecerlo en el resultado de [calculateValue]
+  /// o `0` si [calculateValue] devuelve `null`
+  void updateStoredValue() {
+    storedNullableValue ??= calculateValue() ?? 0;
+  }
+
+  
+  /// Calcula un valor a utilizar,
+  /// potencialmente `nulo`.
+  int? calculateValue();
+}
+
+//Null checking
+
+int getLength(String? str) {
+  // Add null check here
+
+  return str.length;
+}
+
+void main() {
+  print(getLength('This is a string!'));
+}
+
+//Promotion with exceptions
+
+int getLength(String? str) {
+  // Try throwing an exception here if `str` is null.
+
+  return str.length;
+}
+
+void main() {
+  print(getLength(null));
+}
+
+//Referencias circulares tardías
+//El siguiente código tiene dos objetos que necesitan mantener referencias no anulables entre sí. Intente usar la latepalabra clave para corregir este código.
+
+class Team {
+  final Coach coach;
+}
+
+class Coach {
+  final Team team;
+}
+
+void main() {
+  final myTeam = Team();
+  final myCoach = Coach();
+  myTeam.coach = myCoach;
+  myCoach.team = myTeam;
+
+  print('All done!');
+}
+
+//Tarde y Perezoso
+
+//Aquí hay otro patrón que latepuede ayudar con: inicialización diferida para campos costosos que no aceptan valores NULL.
+
+int _computeValue() {
+  print('In _computeValue...');
+  return 3;
+}
+
+class CachedValueProvider {
+  final _cache = _computeValue();
+  int get value => _cache;
+}
+
+void main() {
+  print('Calling constructor...');
+  var provider = CachedValueProvider();
+  print('Getting value...');
+  print('The value is ${provider.value}!');
+}
+
