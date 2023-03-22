@@ -1,0 +1,297 @@
+//¿Qué son las colecciones?
+
+//Una colección es un objeto que representa un grupo de objetos, que se denominan elementos . Los iterables son una especie de colección.
+
+//Lista: Se utiliza para leer elementos por sus índices.
+
+final fixedLengthList = List<int>.filled(5, 0); // Creates fixed-length list.
+print(fixedLengthList); // [0, 0, 0, 0, 0]
+fixedLengthList[0] = 87;
+fixedLengthList.setAll(1, [1, 2, 3]);
+print(fixedLengthList); // [87, 1, 2, 3, 0]
+// Fixed length list length can't be changed or increased
+fixedLengthList.length = 0;  // Throws
+fixedLengthList.add(499);    // Throws
+
+//Conjunto: se usa para contener elementos que pueden ocurrir solo una vez.
+/*
+Conjunto ()
+Crea un Set vacío .
+fábrica
+Set.from ( elementos iterables )
+Crea un Set que contiene todos los elements.
+fábrica
+Establecer.identidad ()
+Crea un conjunto de identidad vacío .
+fábrica
+Conjunto.de ( iterables < E > elementos )
+Crea un conjunto a partir de elements.
+fábrica
+Set.no modificable ( iterable < E > elementos )
+Crea un conjunto no modificable a partir de elements.
+fábrica */
+  
+//¿Qué es un iterable?
+  
+//An Iterablees una colección de elementos a los que se puede acceder secuencialmente.
+  
+/*En Dart, an Iterablees una clase abstracta, lo que significa que 
+ no puede instanciarla directamente. Sin embargo, puede crear 
+ uno nuevo Iterablecreando un archivo nuevo Listo Set.*/
+  
+//El siguiente ejemplo le muestra cómo leer elementos usando un for-inbucle.
+  
+ void main() {
+  const iterable = ['Salad', 'Popcorn', 'Toast'];
+  for (final element in iterable) {
+    print(element);
+  }
+}
+
+Usar primero y último
+  
+//En algunos casos, desea acceder solo al primer o al último elemento de un archivo Iterable.
+  
+//Puede usar first, que obtiene el primer elemento.
+  
+//Puede usar la lastpropiedad para obtener el último elemento.
+  
+void main() {
+  Iterable<String> iterable = const ['Salad', 'Popcorn', 'Toast'];
+  print('The first element is ${iterable.first}');
+  print('The last element is ${iterable.last}');
+}
+
+// Uso de firstwhere()
+/*Para encontrar el primer elemento que satisfaga ciertas condiciones. 
+ Este método requiere que pase un predicado , que es una 
+ función que devuelve verdadero si la entrada cumple una 
+ determinada condición.*/
+
+bool predicate(String item) {
+  return item.length > 5;
+}
+
+void main() {
+  const items = ['Salad', 'Popcorn', 'Toast', 'Lasagne'];
+
+  // You can find with a simple expression:
+  var foundItem1 = items.firstWhere((item) => item.length > 5);
+  print(foundItem1);
+
+  // Or try using a function block:
+  var foundItem2 = items.firstWhere((item) {
+    return item.length > 5;
+  });
+  print(foundItem2);
+
+  // Or even pass in a function reference:
+  var foundItem3 = items.firstWhere(predicate);
+  print(foundItem3);
+
+  // You can also use an `orElse` function in case no value is found!
+  var foundItem4 = items.firstWhere(
+    (item) => item.length > 10,
+    orElse: () => 'None!',
+  );
+  print(foundItem4);
+}
+
+//Practica escribir un predicado de prueba
+
+/*Su objetivo es implementar el predicado para singleWhere()que 
+ satisfaga las siguientes condiciones:
+
+El elemento contiene el carácter 'a'.
+El elemento comienza con el carácter 'M'. */
+
+String singleWhere(Iterable<String> items) {
+  return items.singleWhere(
+      (element) => element.startsWith('M') && element.contains('a'));
+}
+
+//Comprobación de condiciones
+
+//Cuando se trabaja con Iterable, a veces es necesario verificar que todos los elementos de una colección cumplan alguna condición.
+
+/*La Iterableclase proporciona dos métodos que puede usar para 
+ verificar las condiciones:
+
+any(): Devuelve verdadero si al menos un elemento cumple la condición.
+every(): Devuelve verdadero si todos los elementos cumplen la condición.*/
+
+void main() {
+  const items = ['Salad', 'Popcorn', 'Toast'];
+
+  if (items.any((item) => item.contains('a'))) {
+    print('At least one item contains "a"');
+  }
+
+  if (items.every((item) => item.length >= 5)) {
+    print('All items have length >= 5');
+  }
+}
+
+//Verificar que un Iterable cumple una condición
+
+/*El siguiente ejercicio proporciona práctica en el uso de los métodos 
+ any()y every()descritos en el ejemplo anterior. En este caso, 
+ trabaja con un grupo de usuarios, representado por 
+ Userobjetos que tienen el campo miembro age.
+
+Use any()y every()para implementar dos funciones:
+
+Parte 1: Implementar anyUserUnder18().
+Regrese truesi al menos un usuario tiene 18 años o menos.
+Parte 2: Implementar everyUserOver13().
+Regrese truesi todos los usuarios tienen 13 años o más. */
+
+bool anyUserUnder18(Iterable<User> users) {
+  return users.any((user) => user.age < 18);
+}
+
+bool everyUserOver13(Iterable<User> users) {
+  return users.every((user) => user.age > 13);
+}
+
+class User {
+  String name;
+  int age;
+
+  User(
+    this.name,
+    this.age,
+  );
+}
+
+//Filtración
+
+//Un an Iterablecon valores múltiples inty where()encuentra todos los números que son pares.
+
+var evenNumbers = numbers.where((number) => number.isEven);
+for (final number in evenNumbers) {
+  print('$number is even');
+}
+
+//Ejemplo: Usando where()
+
+//Ejecute este ejemplo para ver cómo where()se puede usar junto con otros métodos como any().
+
+void main() {
+  var evenNumbers = const [1, -2, 3, 42].where((number) => number.isEven);
+
+  for (final number in evenNumbers) {
+    print('$number is even.');
+  }
+
+  if (evenNumbers.any((number) => number.isNegative)) {
+    print('evenNumbers contains negative numbers.');
+  }
+
+  // If no element satisfies the predicate, the output is empty.
+  var largeNumbers = evenNumbers.where((number) => number > 1000);
+  if (largeNumbers.isEmpty) {
+    print('largeNumbers is empty!');
+  }
+}
+
+//Ejemplo: Uso de takeWhile
+
+//Los métodos takeWhile()y skipWhile()también pueden ayudarlo a filtrar elementos de un archivo Iterable.
+
+//Ejecute este ejemplo para ver cómo takeWhile()y skipWhile()puede dividir un Iterablenúmero contenedor.
+
+void main() {
+  const numbers = [1, 3, -2, 0, 4, 5];
+
+  var numbersUntilZero = numbers.takeWhile((number) => number != 0);
+  print('Numbers until 0: $numbersUntilZero');
+
+  var numbersStartingAtZero = numbers.skipWhile((number) => number != 0);
+  print('Numbers starting at 0: $numbersStartingAtZero');
+}
+
+//Filtrado de elementos de una lista
+
+/*El siguiente ejercicio proporciona práctica usando el where()método 
+ con la clase Userdel ejercicio anterior.
+
+Úselo where()para implementar dos funciones:
+
+Parte 1: Implementar filterOutUnder21().
+Devuelve un correo electrónico Iterableque contiene todos 
+los usuarios de 21 años o más.
+Parte 2: Implementar findShortNamed().
+Devuelve un correo electrónico Iterableque contiene todos 
+los usuarios con nombres de longitud 3 o menos. */
+
+Iterable<User> filterOutUnder21(Iterable<User> users) {
+  return users.where((user) => user.age >= 21);
+}
+
+Iterable<User> findShortNamed(Iterable<User> users) {
+  return users.where((user) => user.name.length <= 3);
+}
+
+class User {
+  String name;
+  int age;
+
+  User(
+    this.name,
+    this.age,
+  );
+}
+
+//Cartografía
+
+//Mapear Iterables con el método map()le permite aplicar una función sobre cada uno de los elementos, reemplazando cada elemento por uno nuevo.
+
+//Ejemplo: uso del mapa para cambiar elementos
+
+void main() {
+  var numbersByTwo = const [1, -2, 3, 42].map((number) => number * 2);
+  print('Numbers: $numbersByTwo');
+}
+
+//Poner todo junto
+
+/*Este ejercicio proporciona la clase EmailAddress, que tiene un 
+constructor que toma una cadena. Otra función provista 
+es isValidEmailAddress(), que prueba si una dirección 
+de correo electrónico es válida.*/
+
+Iterable<EmailAddress> parseEmailAddresses(Iterable<String> strings) {
+  return strings.map((s) => EmailAddress(s));
+}
+
+bool anyInvalidEmailAddress(Iterable<EmailAddress> emails) {
+  return emails.any((email) => !isValidEmailAddress(email));
+}
+
+Iterable<EmailAddress> validEmailAddresses(Iterable<EmailAddress> emails) {
+  return emails.where((email) => isValidEmailAddress(email));
+}
+
+class EmailAddress {
+  final String address;
+
+  EmailAddress(this.address);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is EmailAddress &&
+              runtimeType == other.runtimeType &&
+              address == other.address;
+
+  @override
+  int get hashCode => address.hashCode;
+
+  @override
+  String toString() {
+    return 'EmailAddress{address: $address}';
+  }
+}
+
+

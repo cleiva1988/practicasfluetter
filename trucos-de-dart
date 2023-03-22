@@ -1,0 +1,344 @@
+// Trucos de Dart
+
+//Interpolación de cadenas
+
+/*Para poner el valor de una expresión dentro de una cadena, use ${expression}. 
+Si la expresión es un identificador, puede omitir el {}.*/
+
+  void main{
+  String stringify(int x, int y) {
+    return '$x $y';
+  }
+    
+//Variables anulables
+
+//Un anulable Stringnombrado namecon el valor 'Jane'.
+//Un anulable Stringnombrado address con el valor null.
+String? name = 'Jane';
+String? address;
+    
+//Operadores conscientes de nulo
+    
+String? foo = 'a string';
+String? bar; // = null
+
+// Sustituya un operador que haga que 'una cadena' se asigne a baz.
+String? baz = foo ?? bar;
+
+void updateSomeVars() {
+// Sustituya un operador que haga que 'una cadena' se asigne a bar.
+  bar ??= 'a string';
+}
+
+//Acceso condicional a la propiedad
+/*Para proteger el acceso a una propiedad o método de un objeto 
+ que podría ser nulo, coloque un signo de interrogación ( ?) 
+ antes del punto ( .)*/
+    
+// Este método debería devolver la versión en mayúsculas de `str`
+// o nulo si `str` es nulo.
+String? upperCaseIt(String? str) {
+  return str?.toUpperCase();
+}
+
+//Literales de colección
+
+/*La inferencia de tipos de Dart puede asignar tipos a estas 
+ variables por usted. En este caso, los tipos inferidos 
+ son List<String>, Set<String>y Map<String, int>.*/
+
+// Asigne a esto una lista que contenga 'a', 'b' y 'c' en ese orden:
+final aListOfStrings = ['a', 'b', 'c'];
+
+// Asígnele un conjunto que contenga 3, 4 y 5:
+final aSetOfInts = {3, 4, 5};
+
+// Asigne a este un mapa de String a int para que aMapOfStringsToInts['myKey'] devuelva 12: 
+final aMapOfStringsToInts = {'myKey': 12};
+
+// Asigne a esto una lista vacía<doble>:
+final anEmptyListOfDouble = <double>[];
+
+// Asigne a esto un Set<String> vacío:
+final anEmptySetOfString = <String>{};
+
+//Asigne esto un Mapa vacío de doble a int:
+final anEmptyMapOfDoublesToInts = <double, int>{};
+    
+//Sintaxis de flecha
+    
+/*Esta sintaxis de flecha es una forma de definir una función que 
+ejecuta la expresión a su derecha y devuelve su valor.*/
+
+// Paralas siguientes declaraciones usamos la sintaxis de flecha.
+    
+class MyClass {
+  int value1 = 2;
+  int value2 = 3;
+  int value3 = 5;
+
+  // Devuelve el producto de los valores anteriores:
+  int get product => value1 * value2 * value3;
+  
+  // Adds 1 to value1:
+  void incrementValue1() => value1++; 
+  
+  // Devuelve una cadena que contiene cada elemento de la
+  // lista, separada por comas (por ejemplo, 'a,b,c'):
+  String joinWithCommas(List<String> strings) => strings.join(',');
+}
+
+//Cascadas
+
+//Para realizar una secuencia de operaciones en el mismo objeto, use cascadas ( ..)
+
+/* Usando cascadas para crear una instrucción única que establezca 
+ las propiedades anInt, aStringy aListde a BigObject en 
+ 1, 'String!'y [3.0](respectivamente) y luego llame a allDone().*/
+    
+class BigObject {
+  int anInt = 0;
+  String aString = '';
+  List<double> aList = [];
+  bool _done = false;
+  
+  void allDone() {
+    _done = true;
+  }
+}
+
+BigObject fillBigObject(BigObject obj) {
+  return obj
+    ..anInt = 1
+    ..aString = 'String!'
+    ..aList.add(3)
+    ..allDone();
+}   
+    
+//Getters y setters
+//Definir getters y setters siempre que necesite más control sobre una propiedad de lo que permite un campo simple.
+//También puede usar un captador para definir una propiedad calculada:
+
+/*Un captador llamado totalque devuelve la suma de los precios.
+Un colocador que reemplaza la lista por una nueva, siempre que la 
+nueva lista no contenga precios negativos (en cuyo caso, 
+el colocador debe lanzar un InvalidPriceException).
+class InvalidPriceException {}*/
+
+class ShoppingCart {
+  List<double> _prices = [];
+  
+  double get total => _prices.fold(0, (e, t) => e + t);
+  
+  set prices(List<double> value) {
+    if (value.any((p) => p < 0)) {
+      throw InvalidPriceException();
+    }
+    
+    _prices = value;
+  }
+}
+
+//Parámetros posicionales opcionales
+
+//Dart tiene dos tipos de parámetros de función: posicionales y con nombre
+    
+String joinWithCommas(int a, [int? b, int? c, int? d, int? e]) {
+  var total = '$a';
+  if (b != null) total = '$total,$b';
+  if (c != null) total = '$total,$c';
+  if (d != null) total = '$total,$d';
+  if (e != null) total = '$total,$e';
+  return total;
+}
+
+//Parámetros con nombre
+    
+//Los parámetros con nombre son opcionales a menos que estén marcados explícitamente como required.
+    
+/*Su copyWith()método debe devolver un nuevo MyDataObject basado en la 
+ instancia actual, con datos de los parámetros anteriores (si los hay) 
+ copiados en las propiedades del objeto. Por ejemplo, 
+ si newIntno es nulo, copie su valor en anInt.*/
+    
+class MyDataObject {
+  final int anInt;
+  final String aString;
+  final double aDouble;
+
+  MyDataObject({
+     this.anInt = 1,
+     this.aString = 'Old!',
+     this.aDouble = 2.0,
+  });
+
+ final copy = source.copyWith();
+}
+
+//Excepciones
+    
+//A diferencia de Java, todas las excepciones de Dart son excepciones no verificadas.
+   
+typedef VoidFunction = void Function();
+
+class ExceptionWithMessage {
+  final String message;
+  const ExceptionWithMessage(this.message);
+}
+
+abstract class Logger {
+  void logException(Type t, [String? msg]);
+  void doneLogging();
+}
+
+void tryFunction(VoidFunction untrustworthy, Logger logger) {
+  try {
+    untrustworthy();
+  } on ExceptionWithMessage catch (e) {
+    logger.logException(e.runtimeType, e.message);
+  } on Exception {
+    logger.logException(Exception);
+  } finally {
+    logger.doneLogging();
+  }
+}
+    
+//Usando this en un constructor
+    
+/*Agregue un constructor de una línea MyClassque use this.
+la sintaxis para recibir y asignar valores para las tres 
+propiedades de la clase.*/
+
+class MyClass {
+  final int anInt;
+  final String aString;
+  final double aDouble;
+  
+  MyClass(this.anInt, this.aString, this.aDouble);
+}
+
+//Listas de inicializadores
+    
+/*Una lista de inicializadores para asignar los dos primeros 
+ caracteres worda las propiedades letterOney LetterTwo.
+ Para obtener crédito adicional, agregue una assert para 
+ captar palabras de menos de dos caracteres.*/
+ 
+ class FirstTwoLetters {
+  final String letterOne;
+  final String letterTwo;
+
+  FirstTwoLetters(String word)
+      : assert(word.length >= 2),
+        letterOne = word[0],
+        letterTwo = word[1];
+}
+
+//Constructores con nombre
+
+//Asigne a la Colorclase un constructor llamado Color.black que establezca las tres propiedades en cero.
+class Color {
+  int red;
+  int green;
+  int blue;
+  
+  Color(this.red, this.green, this.blue);
+
+  Color.black()
+      : red = 0,
+        green = 0,
+        blue = 0;
+}
+
+//Constructores de fábricas
+    
+//Para crear un constructor de fábrica, use la factory palabra clave:
+
+class Square extends Shape {}
+
+class Circle extends Shape {}
+
+class Shape {
+  Shape();
+
+  factory Shape.fromTypeName(String typeName) {
+    if (typeName == 'square') return Square();
+    if (typeName == 'circle') return Circle();
+
+    throw ArgumentError('Unrecognized $typeName');
+  }
+}
+
+/*Si la lista tiene un valor, cree una IntegerSinglecon ese valor.
+Si la lista tiene dos valores, cree una IntegerDoublecon 
+los valores en orden.
+Si la lista tiene tres valores, cree una IntegerTriplecon los valores 
+en orden.
+De lo contrario, lanza un Error.*/
+    
+class IntegerHolder {
+  IntegerHolder();
+  
+  factory IntegerHolder.fromList(List<int> list) {
+    if (list.length == 1) {
+      return IntegerSingle(list[0]);
+    } else if (list.length == 2) {
+      return IntegerDouble(list[0], list[1]);
+    } else if (list.length == 3) {
+      return IntegerTriple(list[0], list[1], list[2]);
+    } else {
+      throw Error();
+    } 
+  }
+}
+
+class IntegerSingle extends IntegerHolder {
+  final int a;
+  IntegerSingle(this.a); 
+}
+
+class IntegerDouble extends IntegerHolder {
+  final int a;
+  final int b;
+  IntegerDouble(this.a, this.b); 
+}
+
+class IntegerTriple extends IntegerHolder {
+  final int a;
+  final int b;
+  final int c;
+  IntegerTriple(this.a, this.b, this.c); 
+}
+
+//Redirigir constructores
+
+//un constructor de redireccionamiento está vacío y la llamada del constructor aparece después de dos puntos ( :).
+ 
+ /*Creando un constructor con nombre llamado black, pero en lugar 
+  de asignar manualmente las propiedades, rediríjalo al constructor 
+  predeterminado con ceros como argumentos.*/
+    
+    
+class Color {
+  int red;
+  int green;
+  int blue;
+  
+  Color(this.red, this.green, this.blue);
+
+  Color.black() : this(0, 0, 0);
+}
+    
+//Constructores constantes
+
+//Es constante, con la constpalabra clave justo antes Recipeen la declaración del constructor.
+    
+class Recipe {
+  final List<String> ingredients;
+  final int calories;
+  final double milligramsOfSodium;
+
+  const Recipe(this.ingredients, this.calories, this.milligramsOfSodium);
+ }
+   
+}
