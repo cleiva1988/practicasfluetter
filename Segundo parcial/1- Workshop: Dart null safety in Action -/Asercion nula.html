@@ -1,0 +1,28 @@
+//El operador de afirmación nula (!)
+
+//Al agregar !justo después de la expresión, le dice a Dart que el valor no será nulo y que es seguro asignarlo a una variable que no acepta valores NULL.
+
+//Ejercicio: Aserción nula
+
+//intente agregar signos de exclamación para corregir las asignaciones rotas:
+
+int? couldReturnNullButDoesnt() => -3;
+
+void main() {
+  int? couldBeNullButIsnt = 1;
+  List<int?> listThatCouldHoldNulls = [2, null, 4];
+
+  int a = couldBeNullButIsnt!;
+  int b = listThatCouldHoldNulls.first!; // first item in the list
+  int c = couldReturnNullButDoesnt()!.abs(); // absolute value
+
+  print('a is $a.');
+  print('b is $b.');
+  print('c is $c.');
+}
+
+/* Si te equivocas, Dart lanza una excepción en tiempo de ejecución . 
+ Esto hace que el !operador no sea seguro, así que no lo use
+ a menos que esté muy seguro de que la expresión no es nula.*/
+
+
