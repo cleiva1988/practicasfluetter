@@ -1,0 +1,31 @@
+//Codelab de seguridad nula
+
+//Tipos anulables y no anulables
+
+//Ejemplo: Tipos que no aceptan valores NULL
+
+void main() {
+  int a;
+  a = 3;
+  print('a is $a.');
+  
+  //Tipos anulables
+  // Variable que pueda contener un valor nulo
+
+  int? b;
+  b = null;
+  print('b is $b.');
+  
+  //Parámetros de tipo anulable para genéricos
+  //Usar signos de interrogación para corregir las declaraciones de tipo anulables
+  //de aNullableListOfStringsy aListOfNullableStrings:
+  
+  List<String> aListOfStrings = ['one', 'two', 'three'];
+  List<String>? aNullableListOfStrings;
+  List<String?> aListOfNullableStrings = ['one', null, 'three'];
+
+  print('aListOfStrings is $aListOfStrings.');
+  print('aNullableListOfStrings is $aNullableListOfStrings.');
+  print('aListOfNullableStrings is $aListOfNullableStrings.');  
+  
+}
