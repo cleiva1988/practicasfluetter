@@ -1,0 +1,21 @@
+// Tipo promocion
+//Las variables anulables que posiblemente no pueden contener valores nulos se tratan como variables no anulables.
+//Las variables que no aceptan valores NULL reciban valores antes de que cualquier código intente leerlas:
+//Asignación definitiva
+
+void main() {
+  String text;
+
+  if (DateTime.now().hour < 12) {
+    
+    //¡Es de mañana! ¡Hagamos ejercicio!
+    text = "It's morning! Let's make gym!";
+  } else {
+    
+    //¡Es la tarde! ¡Hagamos pastel!
+    text = "It's afternoon! Let's make cake!";
+  }
+
+  print(text);
+  print(text.length);
+}
