@@ -1,0 +1,16 @@
+//Comprobación de nulos
+
+int getLength(String? str) {
+  if (str == null) {
+    
+    throw 'Hey, that string was null';
+  }
+  // Add null check here
+
+  return str.length;
+}
+
+//Error la variable cadena es nulo
+void main() {
+  print(getLength(null));
+}
