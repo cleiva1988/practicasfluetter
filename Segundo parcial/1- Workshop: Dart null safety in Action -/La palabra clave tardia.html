@@ -1,0 +1,22 @@
+//La palabra clave tardía
+
+//Las vaiables no deben aceptar Valores NULL, pero no se les puede asignar un valor inmediatamente.
+class Meal {
+  
+  //Se asegurará de que la variable tenga un valor antes de usarla.
+  late String _description;
+
+  set description(String desc) {
+    _description = 'Plato del día: $desc';
+  }
+
+  String get description => _description;
+}
+
+void main() {
+  final myMeal = Meal();
+  myMeal.description = 'Gallo pinto!';
+  print(myMeal.description);
+}
+
+
