@@ -2,9 +2,12 @@
 
 //Separa los dos primeros BlueBoxwidgets utilizando un Spacerwidget con un flexvalor de 1.
 
-import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
+
+void main(){
+  runApp(MyWidget());
+}
 
 class MyWidget extends StatelessWidget {
   @override
