@@ -4,9 +4,12 @@
 
 //El siguiente ejemplo muestra "¡Hey!" tres veces, pero en diferentes tamaños de fuente y en diferentes colores. Rowespecifica las propiedades crossAxisAlignment y textBaseline.
 
-import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
+
+void main(){
+  runApp(MyWidget());
+}
 
 class MyWidget extends StatelessWidget {
   @override
