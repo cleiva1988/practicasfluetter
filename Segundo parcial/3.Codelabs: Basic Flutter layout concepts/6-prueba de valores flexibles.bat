@@ -2,9 +2,12 @@
 
 //la suma de los flexvalores (2) determina que ambos Flexiblewidgets reciben la mitad del espacio restante total.
 
-import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
+
+void main(){
+  runApp(MyWidget());
+}
 
 class MyWidget extends StatelessWidget {
   @override
