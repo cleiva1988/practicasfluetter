@@ -5,22 +5,17 @@
 
 import 'package:flutter/material.dart';
 
-void main(){
-  runApp(MyWidget());
+void main() {
+  runApp(MyApp());
 }
 
-class MyWidget extends StatelessWidget {
+class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        BlueBox(),
-        const Spacer(flex: 1),
-        BlueBox(),
-        const Spacer(flex: 1),
-        BlueBox(),
-      ],
+    return MaterialApp(
+      home: MyWidget()
     );
+    throw UnimplementedError();
   }
 }
 
